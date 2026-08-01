@@ -169,20 +169,6 @@ export const projects: Project[] = [
     featured: false,
   },
   {
-    id: "image-video-processing",
-    title: "AI-Powered Image & Video Processing System",
-    description:
-      "A desktop application for real-time image classification, model training and prediction with a GUI-driven workflow.",
-    technologies: ["Python", "OpenCV", "Tkinter", "scikit-learn", "SVM"],
-    achievements: [
-      "Built real-time image classification with a linear SVM model",
-      "Delivered model training and prediction through a Tkinter GUI",
-    ],
-    image: "/images/projects/image-video-processing/image-video-processing.jpg",
-    github: "https://github.com/Yigit033/AI-Powered-Image-Video-Processing-System",
-    featured: false,
-  },
-  {
     id: "spotify-podcast-analysis",
     title: "Top Spotify Podcast Episodes Analysis",
     description:

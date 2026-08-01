@@ -53,7 +53,9 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(0.99 0.005 290);
+  /* Light mode sits on a soft off-white, not near-paper-white: cards are pure
+     white, so the page needs to be a step darker for them to read as raised. */
+  --background: oklch(0.968 0.006 290);
   --foreground: oklch(0.145 0.04 290);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0.04 290);
@@ -61,28 +63,28 @@
   --popover-foreground: oklch(0.145 0.04 290);
   --primary: oklch(0.5 0.16 290);
   --primary-foreground: oklch(0.985 0.005 290);
-  --secondary: oklch(0.955 0.02 290);
+  --secondary: oklch(0.932 0.014 290);
   --secondary-foreground: oklch(0.24 0.04 290);
-  --muted: oklch(0.955 0.02 290);
-  --muted-foreground: oklch(0.55 0.04 290);
-  --accent: oklch(0.955 0.02 290);
+  --muted: oklch(0.932 0.014 290);
+  --muted-foreground: oklch(0.5 0.035 290);
+  --accent: oklch(0.932 0.014 290);
   --accent-foreground: oklch(0.24 0.04 290);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.02 290);
-  --input: oklch(0.92 0.02 290);
+  --border: oklch(0.885 0.016 290);
+  --input: oklch(0.885 0.016 290);
   --ring: oklch(0.6 0.12 290);
   --chart-1: oklch(0.55 0.18 290);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.975 0.01 290);
+  --sidebar: oklch(0.948 0.01 290);
   --sidebar-foreground: oklch(0.145 0.04 290);
   --sidebar-primary: oklch(0.5 0.16 290);
   --sidebar-primary-foreground: oklch(0.985 0.005 290);
-  --sidebar-accent: oklch(0.955 0.02 290);
+  --sidebar-accent: oklch(0.932 0.014 290);
   --sidebar-accent-foreground: oklch(0.24 0.04 290);
-  --sidebar-border: oklch(0.92 0.02 290);
+  --sidebar-border: oklch(0.885 0.016 290);
   --sidebar-ring: oklch(0.6 0.12 290);
 }
 
@@ -118,6 +120,16 @@
   --sidebar-accent-foreground: oklch(0.96 0.01 290);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.6 0.1 290);
+}
+
+/* Light mode — the same radial depth the dark theme gets, so the page does not
+   read as one flat sheet of white. */
+body {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(circle at 50% 0%, oklch(0.87 0.045 290 / 0.55) 0%, transparent 55%),
+    radial-gradient(circle at 100% 10%, oklch(0.9 0.04 310 / 0.4) 0%, transparent 40%);
+  background-attachment: fixed;
 }
 
 /* Dark mode — subtle lavender radial glows */

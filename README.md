@@ -44,6 +44,17 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run format`    | Prettier write                   |
 | `npm run check`     | typecheck + lint + format check  |
 
+## Contact form
+
+Submissions POST to `app/api/contact/route.ts`, which delivers them by e-mail
+through [Resend](https://resend.com). Copy `.env.example` to `.env.local` and set
+`RESEND_API_KEY`; the same variable must be added in the Vercel project settings
+for production.
+
+Without the key the form still renders but reports that messaging is not
+configured and points visitors at the direct e-mail address — it never accepts a
+message it cannot deliver.
+
 ## Content
 
 All site content is data-driven — there is a single source of truth per topic in `data/`:

@@ -8,7 +8,10 @@ import { useEffect, useState } from "react";
 const StarBackgroundCanvas = dynamic(() => import("./star-background-canvas"), { ssr: false });
 
 export function StarsCanvas() {
-  const { theme } = useTheme();
+  // resolvedTheme, not theme: the default is "system", in which case `theme`
+  // is the literal string "system" and never equals "dark" — which rendered
+  // the light-mode (violet) stars on a dark background.
+  const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -17,5 +20,5 @@ export function StarsCanvas() {
 
   if (!mounted) return null;
 
-  return <StarBackgroundCanvas isDark={theme === "dark"} />;
+  return <StarBackgroundCanvas isDark={resolvedTheme === "dark"} />;
 }

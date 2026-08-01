@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { z } from "zod";
+import { useState } from "react";
+import type { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Send, CheckCircle } from "lucide-react";
+import { Send, CheckCircle, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -18,70 +18,55 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { motion, AnimatePresence } from "framer-motion";
 import { contactInfo } from "@/data/social";
-
-// Validation schema using zod
-const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-  subject: z.string().min(5, {
-    message: "Subject must be at least 5 characters.",
-  }),
-  message: z.string().min(10, {
-    message: "Message must be at least 10 characters.",
-  }),
-});
+import { contactSchema } from "@/lib/contact-schema";
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Cleanup timeout if component unmounts mid-submission
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, []);
-
-  // Initialize form with validation
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof contactSchema>>({
+    resolver: zodResolver(contactSchema),
     defaultValues: {
       name: "",
       email: "",
       subject: "",
       message: "",
+      company: "",
     },
   });
 
-  // Form submission handler.
-  // There is no server-side mail service wired up, so instead of silently
-  // dropping the message we hand it to the visitor's mail client pre-filled.
-  // Swap this for a POST to an API route if a provider (Resend, SendGrid…)
-  // is added later.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof contactSchema>) {
     setIsSubmitting(true);
+    setErrorMessage(null);
 
-    const body = `${values.message}\n\n—\n${values.name}\n${values.email}`;
-    const mailto =
-      `mailto:${contactInfo.email}` +
-      `?subject=${encodeURIComponent(values.subject)}` +
-      `&body=${encodeURIComponent(body)}`;
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
 
-    window.location.assign(mailto);
+      if (response.ok) {
+        setIsSubmitted(true);
+        form.reset();
+        return;
+      }
 
-    timeoutRef.current = setTimeout(() => {
+      const data: { error?: string } = await response.json().catch(() => ({}));
+
+      setErrorMessage(
+        data.error === "not_configured"
+          ? `The message service isn't set up yet. Please email me directly at ${contactInfo.email}.`
+          : `Something went wrong sending your message. Please email me directly at ${contactInfo.email}.`
+      );
+    } catch {
+      setErrorMessage(
+        `Couldn't reach the server. Please email me directly at ${contactInfo.email}.`
+      );
+    } finally {
       setIsSubmitting(false);
-      setIsSubmitted(true);
-      form.reset();
-      timeoutRef.current = null;
-    }, 600);
+    }
   }
 
   return (
@@ -109,7 +94,7 @@ export function ContactForm() {
             transition={{ delay: 0.4 }}
             className="text-2xl font-semibold"
           >
-            Almost there!
+            Message sent!
           </motion.h3>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -117,15 +102,8 @@ export function ContactForm() {
             transition={{ delay: 0.5 }}
             className="max-w-md text-center text-muted-foreground"
           >
-            Your email client should have opened with the message ready to send. If it didn&apos;t,
-            you can reach me directly at{" "}
-            <a
-              href={`mailto:${contactInfo.email}`}
-              className="font-medium text-primary underline underline-offset-2"
-            >
-              {contactInfo.email}
-            </a>
-            .
+            Thanks for reaching out — it landed in my inbox and I&apos;ll get back to you as soon as
+            I can.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -147,6 +125,32 @@ export function ContactForm() {
         >
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              {errorMessage && (
+                <div
+                  role="alert"
+                  className="flex items-start gap-3 rounded-lg border border-destructive/30 bg-destructive/10 p-4 text-sm"
+                >
+                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-destructive" />
+                  <span>{errorMessage}</span>
+                </div>
+              )}
+
+              {/* Honeypot — hidden from people, tempting to bots. */}
+              <FormField
+                control={form.control}
+                name="company"
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="pointer-events-none absolute h-0 w-0 opacity-0"
+                  />
+                )}
+              />
+
               <FormField
                 control={form.control}
                 name="name"
