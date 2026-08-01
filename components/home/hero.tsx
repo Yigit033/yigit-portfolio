@@ -7,15 +7,15 @@ import { ArrowRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { socialLinks } from "@/data/social";
+import { socialLinks, socialHref, isExternalSocial } from "@/data/social";
 import { getIconComponent } from "@/lib/icons";
 import { StarHeader } from "@/components/shared/star-header";
 
 const displayedSkills = [
-  "AI & Software Developer",
-  "Computer Vision Engineer",
-  "Machine Learning Developer",
-  "Full Stack Developer",
+  "Artificial Intelligence",
+  "Computer Vision",
+  "Machine Learning",
+  "Full Stack",
 ];
 
 export function Hero() {
@@ -77,9 +77,9 @@ export function Hero() {
                   transition={{ duration: 0.5, delay: 0.2 }}
                   className="max-w-[600px] text-muted-foreground md:text-xl"
                 >
-                  AI &amp; Software Developer with a strong analytical engineering background. I
-                  build computer vision pipelines, machine learning systems and full-stack products
-                  — currently working on autonomous marine and industrial systems at D7 Tech.
+                  AI &amp; Software Developer with a marine engineering background. I build computer
+                  vision pipelines, machine learning systems and full-stack products for autonomous
+                  marine and industrial applications.
                 </motion.p>
               </div>
 
@@ -129,9 +129,9 @@ export function Hero() {
                       className="rounded-full bg-muted/50 hover:bg-primary/10"
                     >
                       <a
-                        href={social.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href={socialHref(social)}
+                        target={isExternalSocial(social) ? "_blank" : undefined}
+                        rel={isExternalSocial(social) ? "noopener noreferrer" : undefined}
                         aria-label={social.name}
                       >
                         {getIconComponent(social.icon)}

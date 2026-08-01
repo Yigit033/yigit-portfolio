@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Copyright, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { socialLinks } from "@/data/social";
+import { socialLinks, socialHref, isExternalSocial } from "@/data/social";
 import { getIconComponent } from "@/lib/icons";
 
 export function Footer() {
@@ -90,9 +90,9 @@ export function Footer() {
                   className="rounded-full bg-muted/50 hover:bg-primary/10"
                 >
                   <a
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={socialHref(social)}
+                    target={isExternalSocial(social) ? "_blank" : undefined}
+                    rel={isExternalSocial(social) ? "noopener noreferrer" : undefined}
                     aria-label={social.name}
                   >
                     {getIconComponent(social.icon)}

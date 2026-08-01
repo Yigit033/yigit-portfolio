@@ -10,8 +10,8 @@ import { skills, type SkillCategory } from "@/data/skills";
 import { StarHeader } from "@/components/shared/star-header";
 
 const highlights = [
-  { highlight: "ASV", label: "Computer vision pose estimation pipeline at D7 Tech" },
-  { highlight: "14", label: "Languages the corporate platform was localized into" },
+  { highlight: "ASV", label: "Computer vision pose estimation for autonomous surface vehicles" },
+  { highlight: "14", label: "Languages a corporate platform was localized into" },
   { highlight: "8", label: "Certifications in ML, data science and cloud" },
   { highlight: "3", label: "Marine engineering internships at Istanbul shipyards" },
   { highlight: "2", label: "Degrees pursued in parallel — ITU and Anadolu University" },
@@ -54,28 +54,26 @@ export default function AboutPage() {
               <Card>
                 <CardContent className="space-y-4 p-6 leading-relaxed">
                   <p>
-                    I&apos;m Yiğit Tilaver, an AI &amp; Software Developer based in Istanbul. I came
-                    to software from marine engineering — I study Ship and Marine Technology
-                    Engineering at Istanbul Technical University — and that analytical background
-                    shapes how I build: systems that have to hold up against real physical
-                    constraints, not only inside a notebook.
+                    I&apos;m Yiğit Tilaver, an AI &amp; Software Developer based in Istanbul. I
+                    studied Ship and Marine Technology Engineering at Istanbul Technical University
+                    and came to software through it — writing code for problems I first met as
+                    physical, mechanical ones. That order shaped how I work: I learned to respect
+                    real-world constraints before I learned to model them.
                   </p>
                   <p>
-                    At <span className="font-medium text-foreground">D7 Tech</span> I build
-                    AI-driven software for autonomous marine and industrial systems. I developed a
-                    data-driven 3D digital twin web interface and engineered an AprilTag-based
-                    computer vision pipeline for camera and ASV (Autonomous Surface Vehicle) pose
-                    estimation, deploying the architecture to cloud environments. Previously at{" "}
-                    <span className="font-medium text-foreground">Mindhunters AI</span> I
-                    architected automated operational workflows with n8n and managed a localization
-                    pipeline that took the corporate platform into 14 languages.
+                    Most of my work sits where machine learning meets things that actually move. I
+                    have built computer vision pipelines for pose estimation of cameras and
+                    autonomous surface vehicles, 3D digital twin interfaces for operational data,
+                    and real-time protective equipment detection for industrial sites. Alongside
+                    that I automate the unglamorous parts — OCR-driven document processing,
+                    operational workflows, multi-language platform rollouts.
                   </p>
                   <p>
-                    My independent work spans real-time computer vision, explainable machine
-                    learning and AI automation — from YOLO-based industrial PPE detection to an
-                    event-driven trading system built on XGBoost with SHAP explainability, and
-                    OCR-driven document processing. I work across Python, TypeScript and the modern
-                    full stack, with Docker and cloud deployment.
+                    I work mostly in Python for models and data, and TypeScript with Next.js for the
+                    interfaces around them, with Docker and cloud deployment in between. What I care
+                    about most is that a system stays explainable: a model whose decisions can be
+                    traced is worth more than a slightly more accurate black box — which is why my
+                    trading system reports SHAP values rather than just predictions.
                   </p>
                 </CardContent>
               </Card>

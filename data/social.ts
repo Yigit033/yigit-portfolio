@@ -1,8 +1,15 @@
 export interface SocialLink {
   id: string;
   name: string;
+  /** Canonical address — shown as text on the contact page. */
   url: string;
   icon: string;
+  /**
+   * Where icon buttons should send the visitor instead of `url`. A `mailto:`
+   * link silently does nothing on machines with no mail client registered, so
+   * the e-mail icon points at the contact form rather than appearing broken.
+   */
+  navigateTo?: string;
 }
 
 export const socialLinks: SocialLink[] = [
@@ -23,6 +30,7 @@ export const socialLinks: SocialLink[] = [
     name: "Email",
     url: "mailto:yigittilaver2000@gmail.com",
     icon: "mail",
+    navigateTo: "/contact",
   },
   {
     id: "phone",
@@ -31,6 +39,16 @@ export const socialLinks: SocialLink[] = [
     icon: "phone",
   },
 ];
+
+/** Target for an icon button — the override when set, otherwise the address. */
+export function socialHref(link: SocialLink): string {
+  return link.navigateTo ?? link.url;
+}
+
+/** Internal routes must not open in a new tab. */
+export function isExternalSocial(link: SocialLink): boolean {
+  return !socialHref(link).startsWith("/");
+}
 
 /** Plain-text contact details, used by the contact page and structured data. */
 export const contactInfo = {

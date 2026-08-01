@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { socialLinks } from "@/data/social";
+import { socialLinks, socialHref, isExternalSocial } from "@/data/social";
 import { getIconComponent } from "@/lib/icons";
 
 const floatingSocials = socialLinks.filter((s) => s.id !== "phone");
@@ -17,9 +17,9 @@ export function FloatingSocials() {
       {floatingSocials.map((social, index) => (
         <motion.a
           key={social.id}
-          href={social.url}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={socialHref(social)}
+          target={isExternalSocial(social) ? "_blank" : undefined}
+          rel={isExternalSocial(social) ? "noopener noreferrer" : undefined}
           whileHover={{ scale: 1.1, x: -5 }}
           whileTap={{ scale: 0.95 }}
           initial={{ opacity: 0, x: 20 }}
