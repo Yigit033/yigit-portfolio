@@ -59,15 +59,15 @@ export default function StarBackgroundCanvas({ isDark }: StarBackgroundCanvasPro
       >
         {isDark ? (
           <>
-            {/* Dark mode — soft white primary + blue-violet accent */}
+            {/* Dark mode — soft white primary + cyan-blue accent */}
             <StarsLayer count={4000} radius={1.5} color="#fafafa" size={0.002} />
-            <StarsLayer count={800} radius={1.5} color="#a5b4fc" size={0.003} />
+            <StarsLayer count={800} radius={1.5} color="#7dd3fc" size={0.003} />
           </>
         ) : (
           <>
-            {/* Light mode — violet primary + deeper violet accent */}
-            <StarsLayer count={3000} radius={1.5} color="#8b5cf6" size={0.002} />
-            <StarsLayer count={600} radius={1.5} color="#6d28d9" size={0.003} />
+            {/* Light mode — cyan-blue primary + deeper blue accent */}
+            <StarsLayer count={3000} radius={1.5} color="#0ea5e9" size={0.002} />
+            <StarsLayer count={600} radius={1.5} color="#0369a1" size={0.003} />
           </>
         )}
       </Canvas>
