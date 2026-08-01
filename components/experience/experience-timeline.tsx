@@ -57,7 +57,7 @@ export function ExperienceTimeline() {
               Experience
             </h1>
             <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              My professional journey across AI, software engineering and marine engineering
+              My professional journey across AI, software engineering and product development
             </p>
           </motion.div>
         </div>

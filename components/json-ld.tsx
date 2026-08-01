@@ -16,7 +16,7 @@ export function JsonLd() {
     telephone: contactInfo.phone,
     jobTitle: "AI & Software Developer",
     description:
-      "AI & Software Developer with a marine engineering background, building computer vision pipelines, machine learning systems and full-stack products.",
+      "Product-oriented AI & Software Developer building and operating LLM-powered features end to end, turning complex requirements into scalable, production-ready applications.",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Istanbul",
@@ -40,14 +40,14 @@ export function JsonLd() {
     ],
     knowsAbout: [
       "Artificial Intelligence",
+      "Large Language Models",
+      "Generative AI",
       "Machine Learning",
       "Computer Vision",
       "Deep Learning",
       "Python",
-      "YOLO",
-      "OpenCV",
-      "Digital Twin",
-      "Autonomous Surface Vehicles",
+      "TypeScript",
+      "Next.js",
       "Full Stack Development",
     ],
     knowsLanguage: [

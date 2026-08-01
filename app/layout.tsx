@@ -3,41 +3,48 @@ import { ClientLayout } from "./client-layout";
 import { JsonLd } from "@/components/json-ld";
 import "./globals.css";
 
+const SITE_NAME = "Yiğit Tilaver";
+const SITE_TITLE = "Yiğit Tilaver | AI & Software Developer";
+
+/** Kept in one place so the page description, OG card and JSON-LD cannot drift. */
+export const SITE_DESCRIPTION =
+  "Product-oriented AI & Software Developer based in Istanbul. Building and operating LLM-powered features end to end, turning complex requirements into scalable, production-ready applications.";
+
 export const metadata: Metadata = {
-  title: "Yiğit Tilaver | AI & Software Developer",
-  description:
-    "AI & Software Developer with a marine engineering background. I build computer vision pipelines, machine learning systems and full-stack products for autonomous marine and industrial applications.",
+  title: {
+    default: SITE_TITLE,
+    // Sub-pages set a short title; this appends the name for them.
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
   metadataBase: new URL("https://yigittilaver.com"),
 
-  // Basic metadata
-  applicationName: "Yiğit Tilaver Portfolio",
-  authors: [{ name: "Yiğit Tilaver", url: "https://github.com/Yigit033" }],
-  creator: "Yiğit Tilaver",
-  publisher: "Yiğit Tilaver",
+  applicationName: `${SITE_NAME} Portfolio`,
+  authors: [{ name: SITE_NAME, url: "https://github.com/Yigit033" }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
   keywords: [
     "Yiğit Tilaver",
     "AI Developer",
     "Software Developer",
-    "Computer Vision",
+    "Full Stack Developer",
+    "LLM",
+    "Large Language Models",
+    "Generative AI",
     "Machine Learning",
-    "Deep Learning",
+    "Computer Vision",
     "Python Developer",
-    "YOLO",
-    "OpenCV",
-    "Digital Twin",
-    "Autonomous Surface Vehicle",
-    "Istanbul Technical University",
     "Next.js",
     "TypeScript",
+    "Istanbul",
   ],
 
   openGraph: {
     type: "website",
     url: "https://yigittilaver.com",
-    title: "Yiğit Tilaver | AI & Software Developer",
-    description:
-      "AI & Software Developer with a marine engineering background. Computer vision, machine learning and full-stack engineering for autonomous marine and industrial systems.",
-    siteName: "Yiğit Tilaver",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    siteName: SITE_NAME,
     locale: "en_US",
     images: [
       {
@@ -51,9 +58,8 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Yiğit Tilaver | AI & Software Developer",
-    description:
-      "AI & Software Developer with a marine engineering background. Computer vision, machine learning and full-stack engineering.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     images: ["/images/og-image.jpg"],
   },
 
@@ -74,7 +80,7 @@ export const metadata: Metadata = {
   },
 
   alternates: {
-    canonical: "https://yigittilaver.com",
+    canonical: "/",
   },
 };
 

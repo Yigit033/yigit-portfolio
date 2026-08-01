@@ -53,6 +53,7 @@ export const skills: Record<SkillCategory, Skill[]> = {
     { name: "WordPress", category: "Web & Full Stack", logoKey: "wordpress" },
   ],
   "Cloud & DevOps": [
+    { name: "AWS", category: "Cloud & DevOps", logoKey: "amazonwebservices" },
     { name: "Google Cloud Platform", category: "Cloud & DevOps", logoKey: "googlecloud" },
     { name: "Microsoft Azure", category: "Cloud & DevOps", logoKey: "azure" },
     { name: "Docker", category: "Cloud & DevOps", logoKey: "docker" },
