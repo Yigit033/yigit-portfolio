@@ -21,6 +21,20 @@ function readEnv(name: string): string | undefined {
   return value ? value : undefined;
 }
 
+/**
+ * Strips characters that would break out of, or corrupt, an e-mail display
+ * name — quotes, angle brackets and line breaks — and caps the length.
+ */
+function sanitiseDisplayName(value: string): string {
+  const cleaned = value
+    .replace(/[\r\n<>"]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 60);
+
+  return cleaned || "Portfolio visitor";
+}
+
 export async function POST(request: Request) {
   let payload: unknown;
 
@@ -57,6 +71,12 @@ export async function POST(request: Request) {
   const to = readEnv("CONTACT_TO_EMAIL") ?? contactInfo.email;
   const from = readEnv("CONTACT_FROM_EMAIL") ?? "onboarding@resend.dev";
 
+  // The From address is always our own sender: mail cannot be sent as the
+  // visitor's address without failing SPF/DKIM and being treated as forgery.
+  // Their name goes in the display name and their address in Reply-To, so
+  // replying from the inbox reaches them directly.
+  const senderName = sanitiseDisplayName(name);
+
   try {
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -65,11 +85,11 @@ export async function POST(request: Request) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: `Portfolio Contact <${from}>`,
+        from: `${senderName} (via yigittilaver.com) <${from}>`,
         to: [to],
         reply_to: email,
         subject: `[Portfolio] ${subject}`,
-        text: `${message}\n\n—\nFrom: ${name} <${email}>`,
+        text: `${message}\n\n—\nFrom: ${name} <${email}>\nSent from the contact form on yigittilaver.com`,
       }),
     });
 
