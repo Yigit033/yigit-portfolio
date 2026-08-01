@@ -77,9 +77,9 @@ export function Hero() {
                   transition={{ duration: 0.5, delay: 0.2 }}
                   className="max-w-[600px] text-muted-foreground md:text-xl"
                 >
-                  AI &amp; Software Developer with a marine engineering background. I build computer
-                  vision pipelines, machine learning systems and full-stack products for autonomous
-                  marine and industrial applications.
+                  Product-oriented AI &amp; Software Developer with a strong analytical engineering
+                  background. I build and operate LLM-powered features end to end, turning complex
+                  requirements into scalable, production-ready applications.
                 </motion.p>
               </div>
 
