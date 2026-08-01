@@ -23,8 +23,8 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-bold">Yiğit Tilaver</h3>
             <p className="max-w-xs text-sm text-muted-foreground">
-              AI &amp; Software Developer based in Istanbul. Building computer vision pipelines,
-              machine learning systems and full-stack products.
+              Product-oriented AI &amp; Software Developer based in Istanbul. Building LLM-powered
+              features and full-stack products end to end.
             </p>
           </div>
 
