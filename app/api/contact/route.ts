@@ -11,6 +11,16 @@ import { contactInfo } from "@/data/social";
  * "not_configured" so the form can tell the visitor to e-mail directly
  * instead of pretending the message was sent.
  */
+/**
+ * Reads an environment variable, treating blank as absent. A `.env` line
+ * written as `FOO=` yields "" rather than undefined, which would slip past a
+ * `??` fallback and leave us sending to an empty address.
+ */
+function readEnv(name: string): string | undefined {
+  const value = process.env[name]?.trim();
+  return value ? value : undefined;
+}
+
 export async function POST(request: Request) {
   let payload: unknown;
 
@@ -34,7 +44,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
+  const apiKey = readEnv("RESEND_API_KEY");
 
   if (!apiKey) {
     return NextResponse.json(
@@ -44,8 +54,8 @@ export async function POST(request: Request) {
   }
 
   const { name, email, subject, message } = parsed.data;
-  const to = process.env.CONTACT_TO_EMAIL ?? contactInfo.email;
-  const from = process.env.CONTACT_FROM_EMAIL ?? "onboarding@resend.dev";
+  const to = readEnv("CONTACT_TO_EMAIL") ?? contactInfo.email;
+  const from = readEnv("CONTACT_FROM_EMAIL") ?? "onboarding@resend.dev";
 
   try {
     const response = await fetch("https://api.resend.com/emails", {
